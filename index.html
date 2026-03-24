@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pharmacy Management System</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="app">
+<aside class="sidebar card">
+<div class="logo">PMS</div>
+<div class="muted">Manage Medicines & Stock</div>
+<nav class="nav" style="margin-top:14px">
+  <button data-view="dashboard" class="active">Dashboard</button>
+  <button data-view="add">Add Medicine</button>
+  <button data-view="update">Update Medicine</button>
+  <button data-view="delete">Delete Medicine</button>
+  <button data-view="list">View Medicines</button>
+</nav>
+</aside>
+<main class="main">
+<div class="topbar"><h2 id="view-title">Dashboard</h2></div>
+<div id="view-container"></div>
+</main>
+</div>
+
+<!-- Templates -->
+<template id="tpl-dashboard">
+  <div class="card">
+    <h3>Dashboard Stats</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px">
+      <div class="card" style="text-align:center"><div class="muted">Total Medicines</div><div id="stat-total" style="font-size:22px;font-weight:700">0</div></div>
+      <div class="card" style="text-align:center"><div class="muted">Total Stock</div><div id="stat-stock" style="font-size:22px;font-weight:700">0</div></div>
+    </div>
+    <div style="margin-top:20px"><canvas id="stockChart" style="height:200px"></canvas></div>
+  </div>
+</template>
+
+<template id="tpl-add">
+  <div class="card">
+    <h3>Add Medicine</h3>
+    <form id="addForm" class="row">
+      <div><label>Medicine Name</label><input name="name" required></div>
+      <div><label>Medicine ID</label><input name="mid" type="number" required></div>
+      <div><label>Stock Quantity</label><input name="qty" type="number" required></div>
+      <div><label>Expiry Date</label><input name="expiry" type="date" required></div>
+      <div style="grid-column:1/-1; margin-top:8px"><button class="btn primary" type="submit">Add Medicine</button></div>
+    </form>
+  </div>
+</template>
+
+<template id="tpl-update">
+  <div class="card">
+    <h3>Update Medicine</h3>
+    <form id="updateForm" class="row">
+      <div><label>Medicine ID</label><input name="mid" type="number" required></div>
+      <div><label>New Name</label><input name="name"></div>
+      <div><label>New Stock Quantity</label><input name="qty" type="number"></div>
+      <div><label>New Expiry Date</label><input name="expiry" type="date"></div>
+      <div style="grid-column:1/-1; margin-top:8px"><button class="btn primary" type="submit">Update Medicine</button></div>
+    </form>
+  </div>
+</template>
+
+<template id="tpl-delete">
+  <div class="card">
+    <h3>Delete Medicine</h3>
+    <form id="deleteForm" class="row">
+      <div><label>Medicine ID</label><input name="mid" type="number" required></div>
+      <div style="grid-column:1/-1; margin-top:8px"><button class="btn primary" type="submit">Delete Medicine</button></div>
+    </form>
+  </div>
+</template>
+
+<template id="tpl-list">
+  <div class="card">
+    <h3>Medicines List</h3>
+    <input id="searchMed" placeholder="Search by Medicine ID or Name" style="margin-bottom:8px;padding:6px 10px;border-radius:8px;border:1px solid #ccc;width:100%">
+    <table><thead><tr><th>Medicine Name</th><th>ID</th><th>Stock</th><th>Expiry Date</th></tr></thead><tbody id="medTable"></tbody></table>
+  </div>
+</template>
+
+<script src="script.js"></script>
+</body>
+</html>
